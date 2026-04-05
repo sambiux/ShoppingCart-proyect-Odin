@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body{
+  width: 100%;
+  height: 100%;
+  font-family: "Rowdies", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+
+.menu-nav{
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  padding: 4vh;
+}
+.menu-nav img{
+  width: 3vw;
+  height: 3vh;
+  object-fit: contain;
+}
+.menu-nav > div:nth-child(2){
+  display: flex;
+  gap: 4vh;
+ 
+}
+
+
+a{
+  text-decoration: none;
+  color: black;
+}
+
+.products{
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 2vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.products img{
+  width: 10vw;
+  height: 10vh;
+  object-fit: cover;
+}
+
+
+
+.seccions-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.seccions-container > div{
+  display: flex;
+  align-items: center;
+
+}
+
+.seccions-container > div p{
+  color: #0855F8;
+}
+
+.cart-container {
+  transition: transform 0.3s ease;
+}
+
+.cart-container:hover {
+  animation: 1s animacionCarrito ease-in-out infinite;
+}
+
+@keyframes animacionCarrito {
+  from {
+    transform: translateY(0vh);
+  }
+  50% {
+    transform: translateY(-3vh);
+  }
+  to {
+    transform: translateY(0vh);
+  }
+}
+
+
