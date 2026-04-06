@@ -12,14 +12,13 @@
 }
 
 .cartShop-cards{
-    width: 20vw;
-    height: 40vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     border: 2px solid black;
-    margin-top: 3vh;
+    border-radius: 12px;
+    width: 24vw;
 }
 
 .cartShop-cards img{
@@ -30,13 +29,39 @@
 
 .cartShop-container{
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    align-items: space-around;
+    justify-content: space-around;
     margin-top: 5vh;
-    width: 50%;
+   
 }
 
 .cartShop-container > div:first-child{
     display: flex;
     align-items: flex-start;
+}
+
+.pay-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 12px;
+    padding: 4vh;
+}
+
+.pay-container .price-total{
+    color: blue;
+}
+.pay-container button{
+    border: 2px solid blue;
+    border-radius: 12px;
+    padding: 1vh;
+    font-family: "Rowdies", sans-serif;
+    transition: 300ms transform ease-in-out;    
+}
+
+.pay-container button:hover{
+    transform: translateY(2vh);
 }
