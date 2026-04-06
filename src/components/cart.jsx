@@ -12,20 +12,19 @@ function Cart(){
     const {counter, cant , productsBuy} = useContext(ProductContext)
     const {showCant, setShowCant} = useState(false)
 
-
+    const total= productsBuy.reduce((acumulador, productPrice) =>{
+        return acumulador + productPrice.price;
+    }, 0)
 
     
     return(
         <>
             <nav className="nav-store">
-                <h2>Cart</h2>
+                <h2>Your Shopping Cart</h2>
                 <Link to="/"><img src={casaIcon} alt="casa icon" /></Link>
             </nav>
 
             <div className="cartShop-container">
-            <div>
-                <h2>Your Shopping Cart</h2>
-            </div>
             {productsBuy.map((item, index) => {
                 return(
                     
@@ -33,17 +32,31 @@ function Cart(){
                         <img src={item.img} alt="" />
                         <p>{item.nombre}</p>
                         <p>Subtotal: {item.price}</p>
-                        {productsBuy.length == 0 ? (
-                            <h2>Por ahora nada por aqui!</h2>
-                        ):(
-                            <p>Cantidad: {cant}</p>
+                        {!productsBuy.length == 0 &&(
+                            <p>Cantidad : {cant}</p>
                         )}
+                        <button>Buy</button>
                     </div>
                 )
             })}
             <div>
-                <h2>orden Summary</h2>
-                <p>Subtotal: {productsBuy.price}</p>
+                {productsBuy.length == 0 ? (
+                <h2>Por el momento nada por aqui!</h2>
+            ):(
+                <div className="pay-container">
+                    <h2>Orden Summary</h2>
+                    {productsBuy.map((item) => {
+                        return(
+                            <>
+                                <li>{item.nombre}</li>
+                                <p>Price: {item.price}</p>
+                            </>
+                        )
+                    })}
+                    <p className="price-total">Total: {total}</p>
+                    <button>pay purchase</button>
+                </div>
+            )}
             </div>
             </div>
         </>
