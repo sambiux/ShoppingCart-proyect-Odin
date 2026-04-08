@@ -1,48 +1,61 @@
 import { useContext, useEffect, useState } from "react";
 import { useProducts } from "../hooks/useProducts";
+import ProductCard from "../components/ProductCard";
 import casaIcon from "../assets/casa-icon.png";
-import añadirIcon from "../assets/anadir.png";
-import restarIcon from "../assets/menosIcon.png"
+import onAdd from "../assets/anadir.png";
+import onRemove from "../assets/menosIcon.png"
 import "../styles/store.css"
 import { Link } from "react-router";
 import { ProductContext } from "../context/productContext";
+
 
 function Store(){
 
     const {products, error, loading} = useProducts();
     const {counter, increment, productsBuy, cant, setCounter,  setProductsBuy, setCant} = useContext(ProductContext)
+    const [cantidades, setCantidades] = useState({});
 
 
 
     if(loading) return <p>Loading...</p>
     if(error) return <p>Server Error</p>
 
+
+    function handlePlusCant(id){
+    setCantidades(prev => ({
+        ...prev,
+        [id]: (prev[id] || 0) + 1
+    }));
+}
+
+function handleSubstracCant(id){
+    setCantidades(prev => ({
+        ...prev,
+        [id]: Math.max((prev[id] || 0) - 1, 0)
+    }));
+}
+
     function ProductsToBuy(item){
-        if(cant == 0){
-            
-            alert("Agrege la cantidad de unidades")
-        }
-        else{
-            setProductsBuy([...productsBuy, {img: item.image, nombre: item.brand, price: item.price, cant: cant}])
-            alert("producto agregado con exito")
-            
-        }
-    }
+    const cantidad = cantidades[item._id] || 0;
 
-    function handlePlusCant(){
-        setCant((prev) => prev + 1)
-    }
+    if(cantidad === 0){
+        alert("Agrege la cantidad de unidades");
+    } else {
+        setProductsBuy([
+            ...productsBuy,
+            {
+                img: item.image,
+                nombre: item.brand,
+                price: item.price,
+                cant: cantidad
+            }
+        ]);
 
-    function handleSubstracCant(){
-        if(cant > 0){
-            setCant((prev) => prev - 1)
-        }
-        else{
-            setCant(0)
-        }
+        alert("producto agregado con exito");
     }
+}
 
-    
+
 
     
     return(
@@ -53,23 +66,16 @@ function Store(){
             </nav>
             <div className="products">
                 <div className="products-cards">
-                    {products.map((items, index) => {
-                        return(
-                            <div className="products-info">
-                                <h3>{items.brand}</h3>
-                                <img key={items._id}src={items.image} alt="" />
-                                <p>{items.title}</p>
-                                <p>Price: {items.price}</p>
-                                <div className="cant-container">
-                                    <img onClick={() => handleSubstracCant()} src={restarIcon} alt="icon de restar cantidad" />
-                                    <p>{cant}</p>
-                                    <img onClick={() => handlePlusCant()} src={añadirIcon} alt="icon de sumar cantidad" />
-
-                                </div>
-                                <button onClick={() => ProductsToBuy(items)}>Agregar al carrito</button>
-                            </div>
-                        )
-                    })}    
+                    {products.map((items) => (
+                    <ProductCard
+                        key={items._id}
+                        item={items}
+                        cantidad={cantidades[items._id] || 0}
+                        onAdd={() => handlePlusCant(items._id)}
+                        onRemove={() => handleSubstracCant(items._id)}
+                        onBuy={() => ProductsToBuy(items)}
+                    />
+                    ))}
                 </div>
                 
             </div>
