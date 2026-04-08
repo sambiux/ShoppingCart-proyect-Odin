@@ -13,7 +13,7 @@ function Cart(){
     const {showCant, setShowCant} = useState(false)
 
     const total= productsBuy.reduce((acumulador, productPrice) =>{
-        return acumulador + (productPrice.price * cant);
+        return Math.floor(acumulador + (productPrice.price * productPrice.cant));
     }, 0)
 
     
@@ -33,7 +33,7 @@ function Cart(){
                         <p>{item.nombre}</p>
                         <p>Subtotal: {item.price}</p>
                         {!productsBuy.length == 0 &&(
-                            <p>Cantidad : {cant}</p>
+                            <p>Cantidad : {item.cant}</p>
                         )}
                         <button>Buy</button>
                     </div>
