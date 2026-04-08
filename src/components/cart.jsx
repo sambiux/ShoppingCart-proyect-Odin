@@ -13,7 +13,7 @@ function Cart(){
     const {showCant, setShowCant} = useState(false)
 
     const total= productsBuy.reduce((acumulador, productPrice) =>{
-        return acumulador + productPrice.price;
+        return acumulador + (productPrice.price * cant);
     }, 0)
 
     
